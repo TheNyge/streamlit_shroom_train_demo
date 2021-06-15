@@ -127,12 +127,12 @@ with model_training:
 		n_estimators = st.sidebar.number_input("The number of trees in the forest", 100, 5000, step = 10, key = 'n_estimators')
 		learning_rate = st.sidebar.selectbox("The learning rate (alpha) for gradient descent", (0.001, 0.01, 0.1, 0.3), key = 'learning_rate')
 		max_depth = st.sidebar.number_input("The maximum depth of the tree", 1, 20, step = 1, key = 'max_depth')
-		subsample = st.sidebar.number_input("Subsample proportion of samples when fitting base learners", 0.3, 1.0, step = 0.1, key = 'subsample')
+		subsample = st.sidebar.number_input("Subsampling proportion", 0.3, 1.0, step = 0.1, key = 'subsample')
 		metrics = st.sidebar.multiselect("Select metrics to plot", ('Confusion Matrix', "ROC Curve", "PR curve"))
 
 		if st.sidebar.button("Classify", key = 'classify'):
 			# st.sidebar("Gradient Boosting Results")
-			model = GradientBoostingClassifier(max_depth = max_depth, n_estimators = n_estimators, learning_rate = learning_rate, subsample = subsample, n_jobs = -1)
+			model = GradientBoostingClassifier(max_depth = max_depth, n_estimators = n_estimators, learning_rate = learning_rate, subsample = subsample)
 			model.fit(X_train, y_train)
 			accuracy = model.score(X_test, y_test)
 			y_pred = model.predict(X_test)
